@@ -3,20 +3,13 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    render json: Task.all, status: :ok
   end
 
   # GET /tasks/1 or /tasks/1.json
   def show
-  end
-
-  # GET /tasks/new
-  def new
-    @task = Task.new
-  end
-
-  # GET /tasks/1/edit
-  def edit
+    task = set_task
+    render json: task, status: :ok
   end
 
   # POST /tasks or /tasks.json
@@ -36,15 +29,7 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
-    end
+   
   end
 
   # DELETE /tasks/1 or /tasks/1.json
@@ -65,6 +50,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:name, :description, :due_date, :status_id, :deleted_at)
+      params.require(:task).permit(:name, :description, :due_date, :status_id)
     end
 end

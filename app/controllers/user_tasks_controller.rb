@@ -4,20 +4,15 @@ class UserTasksController < ApplicationController
   # GET /user_tasks or /user_tasks.json
   def index
     @user_tasks = UserTask.all
+    render json: @user_tasks, status: :ok
   end
 
   # GET /user_tasks/1 or /user_tasks/1.json
   def show
+    user_task = set_user_task
+    render json: user_task, status: :ok
   end
 
-  # GET /user_tasks/new
-  def new
-    @user_task = UserTask.new
-  end
-
-  # GET /user_tasks/1/edit
-  def edit
-  end
 
   # POST /user_tasks or /user_tasks.json
   def create
