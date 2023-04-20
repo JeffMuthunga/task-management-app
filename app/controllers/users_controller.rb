@@ -1,5 +1,8 @@
+require 'sendgrid-ruby'
+include SendGrid
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token, only: [:create]
+
 
   # GET /users or /users.json
   def index
@@ -17,7 +20,16 @@ class UsersController < ApplicationController
     usertasks= user.tasks
     render json: usertasks, status: :ok
   end
-
+  def create
+    user = User.create!(user_params)
+    if user.persisted?
+      RegistrationMailer.registration_email(user).deliver_now
+      render json: user, status: :created
+    else
+      render json: {error: "User not created"}, status: :unprocessable_entity
+    end
+    
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -27,6 +39,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:email_address, :password_digest, :updated_at, :deleted_at)
+      params.permit(:email_address, :password)
     end
 end

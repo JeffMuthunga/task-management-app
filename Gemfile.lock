@@ -76,6 +76,7 @@ GEM
       activesupport (>= 5.2, < 7.1)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
+    bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -179,11 +180,15 @@ GEM
     reline (0.3.3)
       io-console (~> 0.5)
     rexml (3.2.5)
+    ruby_http_client (3.5.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.8.6)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
+    smtpapi (0.1.12)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -225,6 +230,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   acts_as_paranoid
+  bcrypt
   bootsnap
   byebug
   capybara
@@ -235,6 +241,8 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
   selenium-webdriver
+  sendgrid-ruby
+  smtpapi
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails

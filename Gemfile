@@ -14,6 +14,8 @@ gem "sqlite3", "~> 1.4"
 
 gem 'acts_as_paranoid'
 
+gem 'smtpapi'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -31,7 +33,8 @@ gem "jbuilder"
 gem 'byebug'
 gem "faker"
 gem 'active_model_serializers'
-
+gem 'sendgrid-ruby'
+gem 'bcrypt'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
