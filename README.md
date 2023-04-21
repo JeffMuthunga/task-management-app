@@ -37,7 +37,8 @@ Coming soon...
   2. React with javascript.
   3. PostgreSQL
   4. HTML/CSS
-##License
-
+  
+## License
+[MIT License](./license)
 ## Support and Contact Information
 TaskIt is an open-source project, so contributions from the community are welcome. If you are interested in contributing to the project or for any enquireies and queries feel free to contact us @jeffmuthunga@gmail.com 
