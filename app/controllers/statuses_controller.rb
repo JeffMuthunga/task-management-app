@@ -1,6 +1,5 @@
 class StatusesController < ApplicationController
-  before_action :set_status, only: %i[ show edit update destroy ]
-
+  skip_before_action :verify_authenticity_token
   # GET /statuses or /statuses.json
   def index
     @statuses = Status.all

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
-
+  before_action :authorize
+  skip_before_action :verify_authenticity_token
   # GET /tasks or /tasks.json
   def index
     render json: Task.all, status: :ok
@@ -52,4 +52,7 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:name, :description, :due_date, :status_id)
     end
+    def authorize
+      render json: {errors: ["Not authorized"]}, status: 401 unless session.include? :user_id
+  end
 end

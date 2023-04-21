@@ -1,6 +1,5 @@
 class UserTasksController < ApplicationController
-  before_action :set_user_task, only: %i[ show edit update destroy ]
-
+ 
   # GET /user_tasks or /user_tasks.json
   def index
     @user_tasks = UserTask.all

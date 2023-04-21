@@ -1,7 +1,9 @@
 require 'sendgrid-ruby'
 include SendGrid
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
+  before_action :authorize
+  skip_before_action :authorize, only: [:create]
+  skip_before_action :verify_authenticity_token
 
 
   # GET /users or /users.json
@@ -12,7 +14,11 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     user = set_user
-    render json: user, status: :ok
+    if user
+      render json: user, status: :ok
+    else
+      render json: {error: "User not found"}, status: 401
+    end
   end
 
   def usertasks
@@ -22,11 +28,11 @@ class UsersController < ApplicationController
   end
   def create
     user = User.create!(user_params)
-    if user.persisted?
-      RegistrationMailer.registration_email(user).deliver_now
+    if user.valid?
+      session[:user_id] = user.id
       render json: user, status: :created
     else
-      render json: {error: "User not created"}, status: :unprocessable_entity
+      render json: {error: "User Invalid"}, status: :unprocessable_entity
     end
     
   end
@@ -40,5 +46,9 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.permit(:email_address, :password)
+    end
+
+    def authorize
+      render json: {errors: ["Not authorized"]}, status: 401 unless session.include? :user_id
     end
 end
